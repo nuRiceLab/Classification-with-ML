@@ -7,6 +7,7 @@ import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, optimizers, callbacks
 import os
 from generator_class import DataGenerator
+from tensorflow.keras.optimizers import SGD
 import json
 import argparse
 
@@ -23,12 +24,12 @@ def get_data(pixel_map_dir, generator):
     file_list = []
 
     for f in file_list_all:
-        if generator.get_info(f)['NuPDG'] != 16 and generator.get_info(f)['NuPDG'] != -16 and generator.get_info(f)['NuEnergy']< 5.0:
+        if generator.get_info(f)['NuPDG'] != 16 and generator.get_info(f)['NuPDG'] != -16 and generator.get_info(f)['NuEnergy'] < 4.0:
             file_list.append(f)
 
-    split = int(.8*len(file_list))
+    random.shuffle(file_list)
+    split = int(.8*len(file_list)) # 20% for testing
     allfiles, testfiles = file_list[:split], file_list[split:]
-    random.shuffle(allfiles)
     
     return allfiles, testfiles
 
@@ -118,6 +119,8 @@ if __name__ == "__main__":
     generator = DataGenerator(_files, **params)
     # prepare data
     data, testdata = get_data(args.pixel_maps_dir, generator)
+    
+    print(f'Number of pixel maps for training {len(data)}')
     partition = {'train':data[:int(.8*len(data))], 'validation':data[int(.8*len(data)):]}
 
 
@@ -129,14 +132,14 @@ if __name__ == "__main__":
     inputs = layers.Input(shape=input_shape)
 
     # Initial Convolution Layer
-    x = layers.Conv2D(128, 7, strides=2, padding='same')(inputs)
+    x = layers.Conv2D(64, 7, strides=2, padding='same')(inputs)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.MaxPooling2D(3, strides=2, padding='same')(x)
 
     # Residual Blocks
-    num_blocks = 8  # Increase the number of residual blocks
-    filters = 128   # Increase the number of filters in each block
+    num_blocks = 5  # Increase the number of residual blocks
+    filters = 64   # Increase the number of filters in each block
 
     for _ in range(num_blocks):
         x = residual_block(x, filters)
@@ -145,11 +148,9 @@ if __name__ == "__main__":
     x = layers.GlobalAveragePooling2D()(x)
 
     # Fully connected (Dense) layers
-    x = layers.Dense(256, activation='relu')(x)  # Increase the number of units
-    x = layers.Dropout(0.5)(x) 
     x = layers.Dense(128, activation='relu')(x)
-    x = layers.Dropout(0.5)(x) 
-    x = layers.Dense(64, activation='relu')(x)# Increase the number of units
+    #x = layers.Dropout(0.5)(x) 
+    x = layers.Dense(64, activation='relu')(x)
     # Output layer with 3 units for classification
     outputs = layers.Dense(3, activation='softmax')(x)
 
@@ -163,19 +164,21 @@ if __name__ == "__main__":
 
     train_generator = DataGenerator(partition['train'], **params)
     validation_generator = DataGenerator(partition['validation'], **params)
+    sgd_optimizer = SGD(learning_rate=1.5e-3, momentum=0.9)
     
-    model.compile(optimizer=optimizers.Adam(learning_rate = 1e-3),
+    model.compile(optimizer=sgd_optimizer,
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
     
-    history = model.fit(train_generator, validation_data=validation_generator,
-                        epochs=args.num_epochs, callbacks=[lr_scheduler, history_saver])
-
     #Saving model summary
     with open('/home/higuera/CNN/model_save/'+args.test_name+'_summary.txt', 'w') as f:
         model.summary(print_fn=lambda x: f.write(x + '\n'))
+ 
+    history = model.fit(train_generator,validation_data=validation_generator,
+                        epochs=args.num_epochs, callbacks=[lr_scheduler, history_saver])
+
              
-    #Save model so no need to retrain
+    #Save model
     model_path = '/home/higuera/CNN/model_save/'+args.test_name
     model.save(model_path)
     print()
