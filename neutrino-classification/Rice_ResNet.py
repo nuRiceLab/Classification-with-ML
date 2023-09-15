@@ -28,7 +28,7 @@ def get_data(pixel_map_dir, generator):
             file_list.append(f)
 
     random.shuffle(file_list)
-    split = int(.8*len(file_list)) # 20% for testing
+    split = int(.9*len(file_list)) # 10% for testing
     allfiles, testfiles = file_list[:split], file_list[split:]
     
     return allfiles, testfiles
@@ -87,14 +87,18 @@ def residual_block(x, filters, kernel_size=3, stride=1):
     shortcut = x
 
     # First convolution layer
-    x = layers.Conv2D(filters, kernel_size, strides=stride, padding='same')(x)
+    x = layers.Conv2D(filters, kernel_size, strides=stride, padding='same', kernel_initializer='he_normal')(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
 
     # Second convolution layer
-    x = layers.Conv2D(filters, kernel_size, padding='same')(x)
+    x = layers.Conv2D(filters, kernel_size, padding='same', kernel_initializer='he_normal')(x)
     x = layers.BatchNormalization()(x)
 
+    # If the number of filters has changed, apply a 1x1 convolution to the shortcut
+    if shortcut.shape[-1] != filters:
+        shortcut = layers.Conv2D(filters, 1, padding='same', kernel_initializer='he_normal')(shortcut)
+    
     # Add the shortcut to the output
     x = layers.Add()([x, shortcut])
     x = layers.ReLU()(x)
@@ -120,8 +124,8 @@ if __name__ == "__main__":
     # prepare data
     data, testdata = get_data(args.pixel_maps_dir, generator)
     
-    print(f'Number of pixel maps for training {len(data)}')
-    partition = {'train':data[:int(.8*len(data))], 'validation':data[int(.8*len(data)):]}
+    print(f'Number of pixel maps for training {len(data)*0.8} and for validation {len(data)*0.2}')
+    partition = {'train': data[:int(.8*len(data))], 'validation': data[int(.8*len(data)):]}
 
 
     history_filename = args.test_name+'training_history.json'
@@ -132,25 +136,24 @@ if __name__ == "__main__":
     inputs = layers.Input(shape=input_shape)
 
     # Initial Convolution Layer
-    x = layers.Conv2D(64, 7, strides=2, padding='same')(inputs)
+    x = layers.Conv2D(32, 7, strides=2, padding='same', kernel_initializer='he_normal')(inputs)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.MaxPooling2D(3, strides=2, padding='same')(x)
 
     # Residual Blocks
-    num_blocks = 5  # Increase the number of residual blocks
-    filters = 64   # Increase the number of filters in each block
+    num_blocks = 3  # Increase the number of residual blocks
+    filters = [32, 64, 128]   # Increase the number of filters in each block
 
-    for _ in range(num_blocks):
-        x = residual_block(x, filters)
+    for i in range(num_blocks):
+        x = residual_block(x, filters[i])
 
     # Global Average Pooling Layer
     x = layers.GlobalAveragePooling2D()(x)
 
     # Fully connected (Dense) layers
-    x = layers.Dense(128, activation='relu')(x)
-    #x = layers.Dropout(0.5)(x) 
-    x = layers.Dense(64, activation='relu')(x)
+    x = layers.Dense(64, activation='relu', kernel_initializer='he_normal')(x)
+    x = layers.Dense(32, activation='sigmoid', kernel_initializer='he_normal')(x)
     # Output layer with 3 units for classification
     outputs = layers.Dense(3, activation='softmax')(x)
 
@@ -164,7 +167,7 @@ if __name__ == "__main__":
 
     train_generator = DataGenerator(partition['train'], **params)
     validation_generator = DataGenerator(partition['validation'], **params)
-    sgd_optimizer = SGD(learning_rate=1.5e-3, momentum=0.9)
+    sgd_optimizer = SGD(learning_rate=1.0e-3, momentum=0.9)
     
     model.compile(optimizer=sgd_optimizer,
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
