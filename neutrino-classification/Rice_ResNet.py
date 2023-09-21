@@ -5,6 +5,7 @@ import glob
 import random
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, optimizers, callbacks
+from tensorflow.keras.callbacks import ModelCheckpoint
 import os
 from generator_class import DataGenerator
 from tensorflow.keras.optimizers import SGD
@@ -110,6 +111,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_epochs', type=int, help='Number of epochs')
     parser.add_argument('--batch_size', type=int, help='Batch size')
+    parser.add_argument('--learning_rate', type=float, help='Learning rate')
     parser.add_argument('--pixel_map_size', type=int, help='Pixel map size square shape')
     parser.add_argument('--pixel_maps_dir', type=str, help='Pixel maps directory')
     parser.add_argument('--test_name', type=str, help='name of model and plots')
@@ -124,8 +126,8 @@ if __name__ == "__main__":
     # prepare data
     data, testdata = get_data(args.pixel_maps_dir, generator)
     
-    print(f'Number of pixel maps for training {len(data)*0.8} and for validation {len(data)*0.2}')
-    partition = {'train': data[:int(.8*len(data))], 'validation': data[int(.8*len(data)):]}
+    print(f'Number of pixel maps for training {len(data)*0.83} and for validation {len(data)*0.2}')
+    partition = {'train': data[:int(.83*len(data))], 'validation': data[int(.83*len(data)):]}
 
 
     history_filename = args.test_name+'training_history.json'
@@ -160,14 +162,15 @@ if __name__ == "__main__":
 
     # Create the model
     model = models.Model(inputs, outputs)
-
+    checkpoint_filepath = '/home/higuera/CNN/tmp_models/'
+    checkpoint_callback = ModelCheckpoint(filepath=checkpoint_filepath, save_best_only=False)
     # Define the learning rate scheduler callback and history saver
     lr_scheduler = LearningRateSchedulerPlateau(factor=0.5, patience=5, min_lr=1e-6)
     history_saver = SaveHistoryToFile(history_filename)
 
     train_generator = DataGenerator(partition['train'], **params)
     validation_generator = DataGenerator(partition['validation'], **params)
-    sgd_optimizer = SGD(learning_rate=1.0e-3, momentum=0.9)
+    sgd_optimizer = SGD(learning_rate=args.learning_rate, momentum=0.9)
     
     model.compile(optimizer=sgd_optimizer,
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
