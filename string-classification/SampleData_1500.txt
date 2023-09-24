@@ -1,0 +1,1526 @@
+4000
+54_12mm
+54_6mm
+54_7mm
+57 10.19v
+57_12mm
+57_6mm
+57_7mm
+57 def
+57_Only
+57_ONLY
+57 sum
+57 Wk5
+60+5
+6300
+63 10.19v
+63+2
+63_5mm
+63_6mm
+63 def
+63 sum
+63 Wk5
+69_5mm
+70 10.19v
+70_5mm
+70 def
+70 sum
+70 Wk5
+adapt iso
+AM- larynx
+AM- l ptery (i)
+AM- mandible (c)
+AM- mandible (i)
+AM- m ptery (i)
+AM- oral cavity
+AM- pituitary
+AM- skin
+AM- submand (i)
+AM- tem lobe (i)
+AM- thyroid
+AM- TMJ (i)
+anal final
+AP
+AP_ONLY
+artifact
+Artifact
+Artif_fat_2.27
+Artif_tiss_2.27
+AVD1
+BB
+bb artifact
+bb_override
+BBs
+BeeBee
+bladder
+bladder_3mm
+Block
+BODY
+Body-TotalTarget
+Bone_Mandible
+BrachialPlex_L
+BrachialPlex_R
+Brain
+Brain1
+Brain1(2)
+Brain2
+brain 2800
+Brain avoid
+BrainAvoid
+Brain Avoid 2
+BrainG
+Brain-GTV
+BrainmGTVOCBS
+brainstem
+Brain_stem
+Brainstem
+Brain Stem
+Brain_Stem
+BrainStem
+BrainStem_03
+BrainStem_04
+BrainStem_05
+Brainstem1
+BRAINSTEM1
+brainstem(2)
+BRAIN STEM2
+Brain Stem - 20
+Brainstem+3
+BRAIN STEM3
+Brain Stem 45
+Brain Stem_45
+Brain Stem -5
+Brain Stem-54
+Brain Stem def
+BrainStm_2.27
+Brain_SubCTV1
+BS-cool
+BS def
+bsTar1
+bsTar2
+bsTar3
+BSTEM+3
+BStemMargin 5mm
+C1_vertebra
+C2_vertebra
+C3_vertebra
+C4_vertebra
+C5_vertebra
+C6_vertebra
+C7_vertebra
+Cavity_Oral
+Cavity_Oral1(2)
+Cerebellum
+Chiasm
+CHIASM
+Chiasm_03
+CHIASM_AVOID
+Cochlea_L
+Cochlea_L1
+COCHLEA_L1
+Cochlea_L1(2)
+cochlea lt
+Cochlea_R
+Cochlea_R1
+COCHLEA_R1
+Cochlea_R1(2)
+cochlea rt
+Coch_R_3mm
+cold
+cold3.12
+cold60
+colon
+cool
+Cool 110 6_4
+Cool20
+Cool 57
+Cool 57a
+Cool 57b
+Cool58
+Cool58a
+Cool58d
+cool60
+Cool 6000
+Cool 6000a
+Cool 60 paplan
+cool 63
+cool66
+Cool66
+Cool 66 6_3
+Cool66a
+Cool66b
+Cool66c
+Cool66 Skull
+cool 7000
+cool72
+Cool72
+CoolBrain
+Cool cavity
+coolComposite
+CoolCornea
+cool mandible
+cool off brain
+CoolOptNrve
+cool temporal
+cool unsp tissue
+cord
+Cord
+Cord+ 5
+CORD+5
+cord avoid
+Cornea_L
+Cornea_R
+cricoarytenoid
+CTV
+CTV 1
+CTV1
+CTV1+2
+CTV1_2
+CTV1+2+3
+CTV1/2 Target
+CTV 1 - 54 Gy
+CTV 1 57 2.27 UM
+CTV 1-  60
+CTV 1 60CGE
+CTV_1_60Gy_TTS
+CTV 1 63 2.27 UM
+CTV 1 - 64
+CTV 1 64
+CTV 1 64CGE
+CTV 1 (66)
+CTV 1 66
+CTV 1 66 Gy
+CTV_1-68
+CTV 1 - 70
+CTV 1 70
+CTV 1-70
+CTV1 70
+CTV 1_70_2.27
+CTV 1 70 2.27 UM
+CTV 1 - 70 def
+CTV 1 70n
+CTV+1cm
+CTV 1 def
+CTV 2
+CTV2
+CTV 2  52CGE
+CTV_2_54Gy_TTS
+CTV 2-  57
+CTV 2 - 60
+CTV 2 60
+CTV_2-60
+CTV 2 60CGE
+CTV2 60 exclusiv
+CTV2 60exclusive
+CTV 2 (63)
+CTV 2 - 63
+CTV 2 63
+CTV 2-63
+CTV 2_63_2.27
+CTV 2 - 63 def
+CTV 2 63n
+CTV2 66
+CTV2-CTV1
+CTV 2 def
+CTV2exclSmoothed
+CTV2exclusive
+CTV2ring7mm
+CTV 3
+CTV3
+CTV 3 48CGE
+CTV 3 50ps 54scn
+CTV 3 54
+CTV 3-  54
+CTV 3 - 57
+CTV 3 57
+CTV 3-57
+CTV 3_57_2.27
+CTV 3 - 57 def
+CTV3 57exclusive
+CTV 3 57n
+CTV3 60
+CTV 3 def
+CTV3(total)
+CTV4 54
+CTV 50
+CTV_50
+CTV_5040
+CTV 50CGE
+CTV 50 GBG
+CTV50 only
+CTv54
+CTV 54
+CTV54
+CTV 5400
+CTV_5400
+CTV 54 Gy
+CTV_56
+CTV56
+CTV 5600 GBG
+CTV 57
+CTV57
+CTV 5700
+CTV_57(2)
+CTV 57 exclusive
+CTV 57 GBG
+CTV57_rev
+CTV57_SUB
+CTV58 exclusive
+CTV58 GBG
+CTV59.4
+CTV 59.4 GBG
+CTv60
+CTV 60
+CTV_60
+CTV60
+CTV 6000
+CTV 6000 GBG
+CTV_60(2)
+ctv60-57
+CTV 60CGE
+CTV 60 GBG
+CTV60_SUB
+CTV 63
+CTV63
+CTV 6300
+CTV_6300
+CTV_63(2)
+CTV63+3
+CTV63+5
+CTV63-70
+CTV63-70_SUB
+CTV 6390
+CTV63_T
+CTV64
+CTV 66
+CTV66
+CTV_6600
+CTV_6600(2)
+CTV 6600 GBG
+CTV 66 GBG
+CTV66 GBG
+CTV_6800
+CTV 6930
+CTV 6930 GBG
+CTV 70
+CTV70
+CTV70+2
+CTV70+4mm
+CTV70+5
+CTV 70 GBG
+CTVexp
+CTV Obli
+CTVp
+CTV PA
+CTV_PLAN_54
+CTVp_MARGIN
+CTVp+sv
+CTVp+sv_MARGIN
+CTV TOT
+CTV TOT+2
+CTV total
+CTVtotal
+CTV-Total
+CTVtotal5mm
+CTVtotal ring7mm
+CTV upper
+Dental Fill Ag
+dental filling
+DentalFilling
+DentalFillings
+DentalWorkPost
+DiaphragmMotion
+dnu66
+dnu70
+Dose 108
+Dose 1500
+Dose 20
+Dose 2500
+Dose 3000
+Dose 4000
+Dose 4100
+Dose 4900
+Dose 5000
+Dose 5010
+Dose 5200
+Dose 5400
+Dose 5450
+Dose 5500
+Dose 5550
+Dose 5650
+Dose 5700
+Dose 5700SUM
+Dose 5780
+Dose 57SUMWK4
+Dose 57SUMWK5
+Dose 57VRFN10.19
+Dose 5800
+Dose 5900
+Dose 6000
+Dose 60ADSUM
+Dose 60_Sum
+Dose 6100
+Dose 6300
+Dose 6300SUM
+Dose 63SUMWK4
+Dose 63SUMWK5
+Dose 63VRFN10.19
+Dose 6400
+Dose 64ADSUM
+Dose 64_Sum
+Dose 6600
+Dose 6600_K1
+Dose 6800
+Dose 6900
+Dose 7000
+Dose 7000SUM
+Dose 70SUMWK4
+Dose 70SUMWK5
+Dose 70VRFN10.19
+Dose 7200
+Dose 7300
+Dose 7500
+Dose 7600
+Dose 76_2
+Dose 7725
+Dose 7900
+Dose 80
+Dose 8000
+DVC
+Earlobe
+EarLobe
+edit
+eso
+Eso - 30 def
+Eso def
+ESOPH_2.27
+esophagus
+Esophagus
+Esophagus1(2)
+Esophagus - 30
+EsoPTV
+external
+External
+Eye_L
+EYE_L
+Eye_L(2)
+eye lt
+Eye_R
+EYE_R
+Eye_R(2)
+eye rt
+filling
+filling1
+Frontal Lobe
+fs30new
+fs57
+fs57new
+fs60
+fs6000 
+fs6600 
+fsAirway
+fsAirwayAvoid
+fs_Cornea-Exp
+fscover
+fsCover66
+fscover70
+fsCoverCTV1
+fs ctv1 1mm
+fsCTV1-64
+fsCTV1_Ring
+fsCTV1ring
+fsCTV1ring10mm
+fsCTV1ring12mm
+fsCTV1_Ring2
+fsCTV1ring5mm
+fsCTV1_Ring_60
+fsCTV1_Ring 6930
+fsCTV1ring6mm
+fsCTV1ring8mm
+fs ctv2 1mm
+fsCTV2-60
+fsCTV2_Ring
+fsCTV2ring
+fsCTV2ring10mm
+fsCTV2_Ring2
+fsCTV2_Ring 6600
+fsCTV2ring8mm
+fsCTV3-54
+fsCTV3_Ring
+fsCTV3ring
+fsCTV3ring10mm
+fsCTV3ring12mm
+fsCTV3_Ring2
+fsCTV3_Ring 6000
+fsCTV4_Ring
+fsCTV4ring10mm
+fsCTV4_Ring2
+fsCTV4_Ring 5600
+fsCTV54 ring
+fsCTV54_Ring
+fsCTV54ring10mm
+fsCTV-54-sub
+fsCTV56_Ring
+fsCTV 57ring
+fsCTV57 ring
+fsCTV57ring
+fsCTV57_Ring
+fsCTV57ring10mm
+fsCTV57_Ring2
+FS_CTV60+10
+FS_CTV60+5
+fsCTV60 ring
+fsCTV60ring
+fsCTV60_Ring
+fsCTV60ring10mm
+fsCTV60_Ring2
+fsCTV-60-sub
+FS_CTV63+5
+fsCTV63 ring
+fsCTV63_Ring
+fsCTV63_Ring2
+fsCTV64_Ring
+fsCTV66_Ring
+fsCTV66_Ring2
+fsCTV69_Ring
+FS_CTV70+2
+fsCTV70 ring
+fsCTV70_Ring
+fsCTV70 ring5mm
+fsCTV all
+fs CTVall 3mm
+fsCTVall ring1cm
+fsCTVdnu1
+fsCTVdnu2
+fsCTVdnu3
+fsCTVexp10mm
+fs CTVTOT+1.2mm
+fs CTVtot+4mm
+fs CTVtotal 3mm
+fsEyeAvoid
+fs get 50
+fs get 50a
+fs get 53
+fs get 54
+fs get 56
+fs get 56a
+fs get 57
+fs get 57a
+fs get 60
+fs get 60a
+fs get 62
+fs get 63
+fs get 66
+fs get 67
+fs get 70
+fs get 70a
+fs get70a
+fs get70b
+fsGTV1ring10mm
+fsHot
+fsHOT
+fs hot54
+fsInfEye
+fsLAOtarget
+fsLarynxAv_2.27
+fs Larynx avoid
+fsLarynxAvoid
+fsLarynxOUT
+fs_Larynx_sub0.2
+fsLeftEyeAvoid
+fsLeftParotidAvd
+fs L ON avoid 60
+fs L o nerve 2mm
+fs L Paro PRV
+fs L parotid
+fs lt eye
+fsLtParotid
+fs max 34
+fs max 35
+fs max 49
+fs max 50
+fs max 53
+fs max 53a
+fs max 56
+fs max 65
+fsMid
+fsMidlineAvoid
+fsNo35
+fs no40
+fs no 45
+fs no 48
+fs no 50
+fs no 54
+fsNo54
+fs no 55
+fs no 56
+fsNo57
+fs no 60
+fs no60
+fsNo63
+fsNo64
+fs no 66
+fsNo67
+fs no 70
+fsNo70
+fs no 75
+fs no 75a
+fs no 75b
+fs no 75c
+fsno76
+fsNoBrainDose
+fsNoEye
+fsNormalTissue
+fsNormalTissue2
+fsNormalTissue3
+fsNT
+fs NT avoid
+fsNTavoid
+FSNTAvoid
+fsNTavoid10
+fsONAvoid
+fs op chiasm 2mm
+fs optic avoid
+fsOpticAvoid
+fs oral avoid
+fsOral Avoidance
+fsOralCavAvoid
+fsParomuffs
+fsParoMuffs
+fsParotid avoid
+fs_Parotid_L_sub
+fsParotid_L_Sub
+fs_Parotid_L_sub0.2
+fsParotid_L_Sub3
+fs_Parotid_R_sub
+fsParotid_R_Sub
+fs_Parotid_R_sub0.2
+fsParotid_R_Sub3
+fs_pCTV 6300_upp
+fs_pCTV 6300_upper
+fs post avoid
+fsPostAvoid
+fs PRV Lt paro
+fs PRV Rt paro
+fsRAOtarget
+FSreduc56
+FSreduc78
+fsreduce57
+fs_ring 6300
+fs_ring 7000
+FS_ringCTV1
+FS_ringCTV2
+FS_ringCTV3
+fs R ON avoid 50
+fs R Paro PRV
+fs R parotid av
+fs R subman av
+fs rt eye
+fsRt ParotidAvd
+FsTarget-54
+fs-TargetAP
+fs-TargetInf
+fsTarget-Vx
+fsTarget-Vx-air
+fsTemp lobe push
+fsTotalTarget
+FS_TotalTarget
+fsTotalTarget2
+fsTotalTarget2-R
+fsTotalTarget_3m
+fsTotalTarget_3mm
+fsTotalTargRing
+FS_TotaTarg_10mm
+fs tot target02
+fs TOTtarget Inf
+fs TOTtarget Sup
+fsTotTargL
+fsTotTargR
+fsTTexp10mm
+fsTTexp 2mm
+fsTTexp2mm
+fsTTexp3mm
+fsTTring10mm
+fs TT totExp10mm
+fsUpperring
+fsUpperringN
+FV
+Genioglossus_M
+Get48
+Get49
+GET49
+Get50
+Get50_kc
+Get52
+get 54
+Get54
+GET54
+Get 5400
+GET56
+get57
+Get 57
+Get57
+GET_57
+Get57_2.27
+Get57a
+Get57paplan
+Get 5800
+Get 5800a
+Get 5800b
+Get 5800c
+Get58 6_4
+GET5950
+get60
+Get 60
+Get60
+Get60a
+get63
+Get63_2.27
+GET64
+Get 6400
+Get 6400a
+get66
+Get 66
+GET66
+Get66 6_3
+Get 66a
+Get 66b
+Get66 nasopharyx
+Get 66 skull
+Get68
+get 6930
+get 70
+Get70
+GET70
+Get70_2.27
+Get70brnstm_2.27
+get70 v2
+get70 v3
+get70 v4
+Glnd_Lacrimal_L
+Glnd_Lacrimal_R
+Glnd_Submand_L
+Glnd_Submand_L1(
+Glnd_Submand_R
+Glnd_Submand_R1(
+Globe_L
+Globe_R
+Glottis
+GTV
+GTV1
+GTV2
+GTV2009
+GTV2015
+GTV (70)
+GTV70
+GTV_7000
+GTV cover
+GTV CT
+GTV def
+GTV_final
+GTVm -do not use
+GTV Min 70
+GTVn
+GTVn def
+GTV n L
+GTV n L def
+GTVnode
+GTV_Node
+GTV_Node_1(2)
+GTVn postchemo
+GTV n R
+GTV n R def
+GTVnr-GBG
+GTV_postop
+GTVprechemo
+GTV_preop
+GTV_Preop
+GTV_PreOp
+GTV t
+Hard_Palate
+Heart
+HeartEPTV
+HeartPTV
+HeartRing
+Hippocampi
+Hippocampus_L
+Hippocampus_R
+hot
+hot60
+hotbrain
+HotBrain
+hot bs
+HotMand
+hot out
+Hot spot
+HU 2500
+HU>2500
+HU_Artifact
+HU_BB
+HU_Teeth
+Hyoid_bone
+Hypothalamus
+iCTV
+iCTVAll
+iso
+Iso
+isocenter
+Isocenter
+Lacrimal_L
+Lacrimal_R
+larynx
+Larynx
+Larynx1(2)
+larynx_2.27
+Larynx - 30
+Larynx - 30 def
+Larynx avoid
+Larynx-avoid
+Larynx_Avoid
+Larynx def
+Larynx rhg
+LASER
+LCochAvoid
+L cochlea
+L Cochlea
+LCochlea
+L Cornea
+Leftcochlea
+Left Cochlea
+Left Cochlea-35
+Left cornea
+Left Cornea
+Left Eye-35
+Left Lens
+Left Lens_2.27
+Left Lens - 5
+Left Lens-5
+Left Lens def
+Left Optic N-45
+Left Optic Nerve
+LeftShlderFlank
+Left Temp Lobe
+lens l
+Lens_L
+Lens_L1
+LENS_L1
+lens r
+Lens_R
+Lens_R1
+LENS_R1
+Less 60
+L eye
+L Eye
+LEyeAv
+L-FMH
+Liver
+L lens
+L Lens
+LN GTV
+Lobe_Frontal
+Lobe_Frontal_L
+Lobe_Frontal_R
+Lobe_Temporal_L
+Lobe_Temporal_L1
+Lobe_Temporal_R
+Lobe_Temporal_R_
+Lobe_Temporal_R1
+L optic nerve
+L Optic Nerve
+LOptNerve-DL
+Lower_Lip
+L Parotid
+LparotidSubTarg
+L SMG
+L Submandibular
+Lt_Ant_Digastric
+Lt_Anterior_Scal
+Lt_Buccinator_M
+Lt Choch_AVD
+Lt_Clavicle
+Lt cochlea
+Lt Cochlea
+LtCochlea
+Lt Cochlea_2.27
+Lt Cochlea - 35
+Lt Cochlea def
+Lt Cornea
+LT Cornea
+L Temp Lobe
+Lt Eye
+Lt Eye_2.27
+LT_EYE_AVD
+Lt Eye def
+lt globe
+Lt Hippocampus
+Lt_Internal_Caro
+Lt_Internal_Jugu
+Lt_Jugular_Foram
+Lt_Lateral_Ptery
+lt lens
+Lt lens
+Ltlens
+LtLens
+Lt lens4
+Lt_Levator_Scapu
+Lt Lung
+Lt_Masseter_M
+Lt_Mastoid
+Lt_Medial_Pteryg
+LT ON def
+LtOpnerve
+LT Optic N -54
+LT Optic N def
+LtOpticNerve
+LT Optic Nerve
+Lt optic nerve60
+LT OptNerv_2.27
+Lt Parot_2.27
+lt parotid
+Lt Parotid
+LtParotid
+LT Parotid - 10
+Lt Parotid - 26
+LTPAROTID+3
+Lt Parotid - 5
+Lt Parotid def
+Lt Parotid Sub
+Lt_Platysma_M
+Lt_Post_Digastri
+Lt_Posterior_Sca
+Lt SMG
+Lt_Sternocleidom
+Lt Subman_2.27
+Lt Submand  def
+Lt Submandibular
+Lt_Submandibular
+Lt Submand -NONE
+Lt Submand Sub
+Lt_thyroid_lobe
+Lt_Trapezius_M
+Lungs
+Lungs_avoid(2)
+Lung_T0
+Lung_T50
+LV
+Mandible
+MANDIBLE1
+Mandible1(2)
+Mandible2
+Mandible_2.27
+Mandible4
+Mandible def
+Mandib_partial
+Marked Iso
+Marked iso(2)
+Mask
+maskbase
+Mask Base
+Max10
+MAX20
+Max25
+MAX 45
+Max 50
+Max50
+MAX 50
+MAX50
+Max52
+MAx53
+Max 58
+MAX58
+MAX_59
+MAx60
+MAX62
+Max 63
+Max63
+Max 66
+Max 72
+Max Sinus
+Mendible
+metal
+metal 2633
+Min70
+Min70-1
+MO
+More68
+More_70-optic
+mucosa avoid
+MUCOSA MINI35
+MUCOSA MINIMIZE
+Mylohyoid_M
+NA
+NasalAir
+NasalCavity
+Necrosis
+Necrosis T1+C_Lf
+Necrosis T1+C_Rg
+NECROSIS T1POST
+NECROSIS_T1POST
+Necrosis T2
+NECROSIS T2
+NECROSIS_T2
+Necrosis T2_Lf
+Necrosis T2_Rg
+NewCTV1_70
+newget57
+NF
+No35
+No40
+no 40 in cornea
+No54
+No57
+No57in50
+no 60
+No-60
+No61
+No63
+No63_2.27
+No-66
+No66
+No68_2.27
+no 69
+No69
+No70
+No70?
+No70_2.27
+no 72
+No78#2_2.27
+No78_2.27
+nodeGTV
+no dose
+NoHotOptic
+none
+none2
+Normal brain
+Normal brain3
+Normal Tissue
+Normal Tissue2
+Nromal Tissue 3
+NT
+OLD CTV DO NOT U
+Optic Avoid
+OpticAvoid
+Optic Chi_2.27
+Optic chiasm
+Optic Chiasm
+OpticChiasm
+OpticChiasm_03
+optic chiasm1
+OpticChiasm1
+OpticChiasm1(2)
+optic chiasm2
+OpticChiasm2
+optic chiasm3
+Optic Chiasm+3
+Optic Chiasm-54
+OpticChiasm_avoi
+Optic Chiasm def
+OpticNerve_L
+optic nerve lt
+OpticNerve_R
+optic nerve rt
+OpticNrv_L
+OPTIC_NRV_L
+OpticNrv_L1
+OpticNrv_L1(2)
+OpticNrv_R
+OPTIC_NRV_R
+OpticNrv_R1
+OpticNrv_R1(2)
+OptNrv_L_03
+OptNrv_R_03
+oral aovid
+oralavoid
+Oral Avoidance
+Oral Cav_2.27
+oral cavity
+Oral Cavity
+OralCavity
+Oral Cavity-10
+ORAL Cavity -30
+Oral Cavity - 5
+Oral Cavity def
+OTV_95
+OTVp
+OTVp_100
+OTVp+sv
+OTVp+sv_100
+OTVp+sv_95
+Outer Ring
+OUTER_RING
+OverlapT1
+overlapT1c
+overlapT2
+OverlapT2
+p2
+p3
+Parotid_L
+PAROTID_L1
+Parotid_L(2)
+Parotid_Lat
+Parotid_Lat def
+Parotid_low
+parotid lt
+Parotid Lt_SUB
+Parotid_R
+Parotid_R(2)
+parotid rt
+passive iso
+pCTV1
+PCTV1
+pCTV1-66
+pCTV1-68
+pCTV1 6930
+pCTV1 70
+pCTV1_70
+pCTV2
+PCTV2
+pCTV 2 63
+pCTV2-63
+pCTV2-65
+pCTV2 66
+pCTV2_66
+pCTV2 6600
+pCTV3
+PCTV3
+pCTV3_56
+pCTV 3 57
+pCTV3 60
+pCTV3-60
+pCTV3 6000
+pCTV3-62
+pCTV4
+pCTV4 54
+pCTV4 5600
+pCTV4-57
+pCTV4-59
+pCTV 54
+pCTV54
+pCTV54_50
+pCTV54 lower
+pCTV 57
+pCTV57
+P_CTV57
+pCTV_57_kc
+pCTV_57_kc2
+pCTV57-LT
+pCTV57-LT2
+pCTV 57n
+pCTV57-RT
+pCTV57-RT2
+p CTV60
+pCTV60
+pCTV 6000
+p CTV6000 ring
+pCTV_60_kc
+pCTV_60_kc2
+pCTV63
+pCTV_6300
+pCTV 6390
+p CTV6390 ring
+pCTV_63_kc
+pCTV_63_kc2
+pCTV 63n
+pCTV64
+pCTV66
+pCTV_66_kc
+pCTV_66_kc2
+pCTV70
+p CTVtotal
+pCTV upper
+Penumbra
+pGTV_7000
+PHARYN_CONST
+Pharynx
+pituitary
+Pituitary
+Pituitary_Gland
+plan target
+p L Eye avoid
+PlnCTV57
+PlnCTV57_2.27
+PlnCTV63
+PlnCTV63_2.27
+PlnCTV70
+PlnCTV70_2.27
+plTarg57+60
+PlTarg6300
+PlTarg6996
+p need 70
+p no 10
+p no 60
+p no61
+p NTissue
+PONS
+post avoid 2
+pre-chemo LNs
+pre-chemo primar
+Pre-op GTV
+pre-surgery GTV
+p ring 60
+p ring total
+PRV Brainstm 5mm
+PRVBrnstm_2.27
+PRV_BSTEM
+PRVbstem 3mm
+PRV_BSTEM+5
+PRVbstem 5mm
+PRV_BSTEM 5mm
+PRV Chiasm
+PRVChiasm3mm
+prvCord
+PRV_cord
+PRV_CORD
+PRVCord_2.27
+PRV cord+3mm
+PRVCORD+5
+PRV cord+5mm
+PRV Cord 5mm
+PRV CORD 5mm
+PRVCORD 5mm
+PRVCORD+7
+PRV cornea
+PRVLarynx
+PRV_LOpt_2mm
+PRV Lt ON
+PRV_LTPAROTID
+PRV_Optics
+PRVOralCav
+PRV_R cornea
+PRV_R Globe
+PRV_R Submandib
+PRV Rt ON
+PRV_RTPAROTID
+PTV
+PTV1-66
+PTV_1cm
+PTV2-63
+PTV3-60
+PTV4-57
+PTV_5040
+PTV54
+PTV_5400
+PTV57
+PTV_5940
+PTV_5940_new
+PTV63
+PTV66
+PTVp
+PTVp+sv
+push70
+r1
+r2
+R38+
+RCochAvoid
+R cochlea
+RCochlea
+R Cornea
+rec&bla3inotv
+rectum
+rectum_3mm
+Reduc58
+Reduce55
+Reduce61.5
+ReduceOffBrain
+reducetemplobe
+R EXT EAR
+R eye
+R Eye
+R-FMH
+Right Cochlea
+Right Cornea
+Right Eye-45
+ring
+Ring 1
+Ring1
+ring2
+Ring 2
+RING45_11_1
+Ring 48
+RING 50
+ring52
+Ring 52
+ring52 new
+RING 54
+Ring 54 7mm
+RING 57
+RING57
+Ring 57  7mm
+RING57 7mm
+Ring57inf
+Ring 58 7mm
+ring60
+RING60
+RING60_11_1
+Ring 60 7mm
+RING60 7mm
+Ring 63
+Ring63
+RING63
+RING63_MXA
+Ring64_11_1
+Ring 64 7mm
+RING66
+Ring 66  7mm
+RING66 7mm
+Ring70
+RING70
+Ring_70_2.27
+RING70_MXA
+ring-ball
+Ring_Total_2.27
+R lens
+R Lens
+ROI_1
+R optic nerve
+R Optic Nerve
+R Parotid
+R Submandibular
+Rt_Ant_Digastric
+Rt_Anterior_Scal
+Rt_Buccinator_M
+Rt_Clavicle
+Rt Coch_2.27
+RtCochAvoid
+Rt cochlea
+Rtcochlea
+Rt Cochlea
+RtCochlea
+Rt Cochlea - 35
+Rt Cochlea_35
+Rt Cochlea def
+Rt cornea
+Rt Cornea
+RT  cornea
+Rt CornealAvoid
+R Temp Lobe
+Rt Eye
+Rt Eye_10
+Rt Eye_2.27
+RT_eyeAv
+RT EYE_AVD
+Rt Eye def
+rt globe
+Rt Hippocampus
+Rt_Internal_Caro
+Rt_Internal_Jugu
+Rt_Jugular_Foram
+Rt_Lateral_Ptery
+rt lens
+Rt lens
+Rtlens
+Rt Lens
+RtLens
+Rt Lens_2.27
+Rt lens4
+Rt Lens - 5
+Rt Lens-5
+Rt Lens_5
+Rt Lens def
+Rt_Levator_Scapu
+Rt Lung
+Rt_Masseter_M
+Rt_Mastoid
+Rt_Medial_Pteryg
+Rt ON+3
+RtOpnerve
+Rt optic N
+Rt Optic N-54
+RT Optic N-54
+RT Optic N def
+Rt Optic Nerve
+RtOpticNerve
+RT Optic Nerve
+Rt optic nerve50
+RT OptiNerv_2.27
+RTOPTN_AVOID
+RtParoSub70
+Rt Parot_2.27
+rt parotid
+Rt Parotid
+RtParotid
+Rt Parotid - 15
+RT Parotid - 26
+RTPAROTID+3
+Rt Parotid def
+Rt Parotid Sub
+Rt_Platysma_M
+Rt_Post_Digastri
+Rt_Posterior_Sca
+Rt SMG
+Rt_Sternocleidma
+RT Submand -20
+RT Submand_2.27
+RT Submand def
+RT Submandibular
+Rt Targ2
+Rt Targ4
+Rt Temp Lobe
+Rt Temp Lobe_low
+Rt_thyroid_lobe
+Rt_Trapezius_M
+RTV 1
+RTV-105
+RTV-180
+RTV 2
+RTV-255
+RTV-290
+RTV-295/90
+RTV 3
+RTV 4
+RTV 5
+RTV 6
+RTV-60
+RTV 7
+RTV_D
+RTV E
+RTV F
+RV
+scanning iso
+Scar Wire
+ScarWire
+ScarWire(AirHU)
+ScarWire(TissHU)
+Shoulders
+silver
+Silver
+SkinOAR
+SN
+Soft_Palate
+SpCordMarg 5mm
+Spinal canal
+Spinal Cord
+SpinalCord
+SPINAL_CORD
+SpinalCord_05
+SpinalCord_07
+SpinalCord1
+Spinal Cord - 10
+SpinalCord1(2)
+Spinal cord2
+SpinalCord2
+Spinal Cord_2.27
+Spinal cord3
+Spinal Cord_40
+Spinal Cord - 45
+Spinal Cord 45
+Spinal Cord def
+SpinalCord_PRV05
+Spine
+Submandibula_L
+Submandibula_R
+submandiular rt
+T1
+T1_031618Lf
+T1_031618Rg
+T1_040313
+T1first
+T1margin
+T1_vertebra
+T1worst
+T2_040313
+T2_091818Rg
+T2worst
+Table
+Targ_54_Lt
+Targ_54_Rt
+target52 2mm
+target60 2mm
+Target 70 63
+Target 70 63 57
+Target_LtInf
+Target_RtInf
+Target_sup
+t_blockBrainstem
+Teeth
+Teeth filling
+Teeth filling2
+TempLAvoid
+TempLobe
+TempLobe_Lf
+TempLobe_Rg
+Temporal lobe
+test-hot
+Thyroid_cartilag
+Thyroid Gland
+Titanium
+Titanium1
+Tongue
+tooth avoid 30 G
+Tooth Enamel
+TotalCTV
+TotalCTV_2.27
+Total Lung
+Total Target
+TotalTarget
+Total Target n
+TOT CTV +1
+Trachea
+t_target_LPO
+t_target_RPO
+Upper_Lip
+V15Brain
+V15TLobe
+V2 skull base
+V30Brain
+V30TLobe
+V40Brain
+V40Br-ctv
+V40BrCtv
+V40GyBrain
+V40GyBrCtv
+V40GyCtv
+V40TLobe
+VertebralColumn
+vGTV
+virtual GTV
+WB
+Whole Brain
+Whole Brain_2.27
+Whole Brain def
+wire
+Wire
+WIRE
+wire-overr_air
+wire_overr_tissu
+wires
+Wires
+WireUnderEarLobe
+xMask
+x OuterRing
+xTable
+xTotTarget_02
+xTotTarget_10
+xTotTarget_13
+xTotTarget_14
+zAirwayAvoid
+zAirwayAvoid2
+zArtifact
+zArtifact2
+zBB
+zBB2
+zBB and wire
+z-bspush
+zDentalFill
+zDentalFilling
+zDentalFilling2
+zDentalFill_silv
+zEnamel
+zEnd of table
+z eso push final
+zGas
+zHU 2500
+zHU>2500
+zHU_2500
+zHUKnobs+2mm
+zIGTV_HU_Overrid
+zMask
+zMaskbase
+zMetalAvoid
+zOralAir
+zTable
+zTeeth
+zteeth filling
+zTeeth filling
+zTeethFilling
+zWire
