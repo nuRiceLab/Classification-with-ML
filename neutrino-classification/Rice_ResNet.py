@@ -126,7 +126,7 @@ if __name__ == "__main__":
     # prepare data
     data, testdata = get_data(args.pixel_maps_dir, generator)
     
-    print(f'Number of pixel maps for training {len(data)*0.83} and for validation {len(data)*0.2}')
+    print(f'Number of pixel maps for training {len(data)*0.83} and for validation {len(data)*0.17}')
     partition = {'train': data[:int(.83*len(data))], 'validation': data[int(.83*len(data)):]}
 
 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     # Create the model
     model = models.Model(inputs, outputs)
-    checkpoint_filepath = '/home/higuera/CNN/tmp_models/'
+    checkpoint_filepath = '/home/sophiaf/CNN/tmp_models/'
     checkpoint_callback = ModelCheckpoint(filepath=checkpoint_filepath, save_best_only=False)
     # Define the learning rate scheduler callback and history saver
     lr_scheduler = LearningRateSchedulerPlateau(factor=0.5, patience=5, min_lr=1e-6)
@@ -177,7 +177,7 @@ if __name__ == "__main__":
               metrics=['accuracy'])
     
     #Saving model summary
-    with open('/home/higuera/CNN/model_save/'+args.test_name+'_summary.txt', 'w') as f:
+    with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name+'_summary.txt', 'w') as f:
         model.summary(print_fn=lambda x: f.write(x + '\n'))
  
     history = model.fit(train_generator,validation_data=validation_generator,
@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
              
     #Save model
-    model_path = '/home/higuera/CNN/model_save/'+args.test_name
+    model_path = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name
     model.save(model_path)
     print()
     print('Model saved to: ' + model_path)
@@ -217,4 +217,4 @@ if __name__ == "__main__":
     plt.yticks([0, 1, 2], labels)
     plt.colorbar(label='Percent of True Values Predicted')
     plt.title('Normalized Confusion Matrix')
-    plt.savefig('/home/higuera/CNN/plots/'+args.test_name+'_con_mat.pdf')
+    plt.savefig('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/plots/'+args.test_name+'_con_mat.pdf')
