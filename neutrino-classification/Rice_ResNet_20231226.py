@@ -1,61 +1,48 @@
-# trying to get list of url list to work 
 import matplotlib.pylab as plt
 import numpy as np
 import zlib
 import glob
 import random
+import os
+import json
+import argparse
+
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, optimizers, callbacks, losses
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
-import keras.backend as K
-import os
-from generator_class_multi_1226 import DataGenerator
-from tensorflow.keras.optimizers import SGD
-import json
-import tqdm
-import argparse
-import pickle
 from tensorflow.keras.regularizers import l2
-from weighted_scce import WeightedSCCE #custom weighted loss function for class imbalance. 
+from tensorflow.keras.optimizers import SGD
+import keras.backend as K
+
+from generator_class_multi_1226 import DataGenerator
+from weighted_scce import WeightedSCCE
 
 #GPU/CPU Selection
 gpu_setting = 'y'
-random.seed(42) # reproducibility 
+
 # Set the number of threads
-num_threads = 8
+num_threads = 12
 tf.config.threading.set_inter_op_parallelism_threads(num_threads)
 
 plt.style.use('/home/sophiaf/mystyle.mplstyle')
 
-def get_data(pixel_map_dir, generator, save_list=False, save_list_dir='/home/sophiaf/pixel_maps_val/preprocessed_filelists/', save_list_filename=None):
+def get_data(pixel_map_dir, generator):
     '''
     Get pixels maps 
     '''
     file_list_all = glob.glob(pixel_map_dir)
     file_list = []
 
-    for f in tqdm.tqdm(file_list_all):
+    for f in file_list_all:
         if generator.get_info(f)['NuPDG'] != 16 and generator.get_info(f)['NuPDG'] != -16 and generator.get_info(f)['NuEnergy'] < 4.0:
             file_list.append(f)
 
     random.shuffle(file_list)
     split = int(.9*len(file_list)) # 10% for testing
     allfiles, testfiles = file_list[:split], file_list[split:]
-    if save_list: 
-        with open(save_list_dir+save_list_filename+'.pkl', 'wb') as f:
-            pickle.dump(allfiles, f)
-        with open(save_list_dir+save_list_filename+'_testset.pkl', 'wb') as f: 
-            pickle.dump(testfiles,f)
+    
     return allfiles, testfiles
 
-def load_data(file):
-    '''
-    If you already have the urls for the proper info loaded up in a pickle use this. 
-    '''
-    with open(file, 'rb') as f:
-        mynewlist = pickle.load(f)
-        f.close()
-    return mynewlist
 
 class LearningRateSchedulerPlateau(callbacks.Callback):
     '''
@@ -133,6 +120,25 @@ def get_pred_class(pred_scores):
     else: 
         pred_class = np.argmax(pred_scores, axis=1)
     return pred_class
+
+# class WeightedSCCE(losses.Loss):
+#     def __init__(self, class_weight, from_logits=False, name='weighted_scce'):
+#         if class_weight is None or all(v == 1. for v in class_weight):
+#             self.class_weight = None
+#         else:
+#             self.class_weight = tf.convert_to_tensor(class_weight, dtype=tf.float32)
+#         self.name = name
+#         self.reduction = losses.Reduction.NONE
+#         self.unreduced_scce = losses.SparseCategoricalCrossentropy(
+#             from_logits=from_logits, name=name, reduction=self.reduction)
+
+#     def __call__(self, y_true, y_pred, sample_weight=None):
+#         loss = self.unreduced_scce(y_true, y_pred, sample_weight)
+#         if self.class_weight is not None:
+#             weight_mask = tf.gather(self.class_weight, y_true)
+#             loss = tf.math.multiply(loss, weight_mask)
+#         # Compute the mean loss across batch dimensions
+#         return tf.reduce_mean(loss)
             
 
 if __name__ == "__main__":
@@ -141,39 +147,24 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, help='Batch size')
     parser.add_argument('--learning_rate', type=float, help='Learning rate')
     parser.add_argument('--pixel_map_size', type=int, help='Pixel map size square shape')
-    parser.add_argument('--pixel_maps_dir', default='', type=str, help='Pixel maps directory')
+    parser.add_argument('--pixel_maps_dir', type=str, help='Pixel maps directory')
     parser.add_argument('--test_name', type=str, help='name of model and plots')
-    # parser.add_argument('--is_preprocessed', type=bool, default=False, help='is the data already preprocessed')
-    parser.add_argument('--listname', type=str, default='urllist_0_thru_2', help='preprocessed data file name')
-    parser.add_argument('--preprocessed', action=argparse.BooleanOptionalAction, help='is the data already preprocessed') # use --no-preprocessed to save it as false
-
     args = parser.parse_args()
-    
     
     n_channels = 3
     dimensions = (args.pixel_map_size, args.pixel_map_size)
     params = {'batch_size':args.batch_size,'dim':dimensions, 'n_channels':n_channels}
 
-
-    # prepare data
-    if not args.preprocessed:
-        print('HI \n \n ') 
-        # _files = []
-        # for pixel_dir in args.pixel_maps_dir:
-        _files = glob.glob(args.pixel_maps_dir) ##### idk if this is right? 
-        generator = DataGenerator(_files, **params)
-        data, testdata = get_data(args.pixel_maps_dir, generator)
-        print('HI I JUST GOT THE DATA \n \n ') 
-    if args.preprocessed:
-        data = load_data('/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'.pkl')
-        testdata = load_data('/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_testset.pkl')
-        _files = data.copy()
-        _files.extend(testdata)
-        generator = DataGenerator(_files, **params)
+    _files = []
+    # for pixel_dir in args.pixel_maps_dir:
+    _files = glob.glob(args.pixel_maps_dir)
+    generator = DataGenerator(_files, **params)
     del _files
+    # prepare data
+    data, testdata = get_data(args.pixel_maps_dir, generator)
     
+    print(f'Number of pixel maps for training {len(data)*0.83} and for validation {len(data)*0.17}')
     partition = {'train': data[:int(.83*len(data))], 'validation': data[int(.83*len(data)):]}
-    print(f"Number of pixel maps for training {len(partition['train'])} and for validation {len(partition['validation'])}")
 
 
     history_filename = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/'+args.test_name+'training_history.json'
@@ -203,7 +194,7 @@ if __name__ == "__main__":
 
     # Fully connected (Dense) layers
     x = layers.Dense(128, activation='relu', kernel_initializer='he_normal')(x)
-    x = layers.Dense(64, activation='sigmoid', kernel_initializer='he_normal')(x)
+    x = layers.Dense(64, activation='sigmoid', kernel_initializer='he_normal')(x) #originally 32 
     
     # Output layer, 3 classifications (no nu_tau) plus sub-class cases. 
     output_names=['flavour','protons','pions','pizeros','neutrons','is_antineutrino']
@@ -217,20 +208,20 @@ if __name__ == "__main__":
                            activation=activation, name=output_names[i])(x)
 
   
-    class_weights_factored = [{0: 1.4837743812022357, 1: 1.0, 2: 1.1844795010129983},
+    class_weights = [{0: 1.4837743812022357, 1: 1.0, 2: 1.1844795010129983},
                      {0: 1.3145238622114037, 1: 1.0, 2: 3.9057891605873696, 3: 7.353197760094312},
                      {0: 1.0, 1: 3.5741821962728944, 2: 9.080158488265772, 3: 8.89313432835821},
                      {0: 1.0, 1: 4.071620282434552, 2: 13.923538548432646, 3: 22.57216435847545},
                      {0: 1.0580227208712798, 1: 1.0, 2: 3.069004255319149, 3: 1.4127086108281752},
                      {0: 1.0, 1: 5.048014773776547}]
-    
+
     # this is a new trial. Just weight by approx sqrt the population density. 
     class_weights = [{0: 1.2, 1: 1.0, 2: 1.1},
                      {0: 1.2, 1: 1.0, 2: 2., 3: 3.},
                      {0: 1.0, 1: 2., 2: 3., 3: 3.},
                      {0: 1.0, 1: 2., 2: 3.5, 3: 4},
                      {0: 1.0, 1: 1.0, 2: 2.3, 3: 1.2},
-                     {0: 1.0, 1: 2.0}]    
+                     {0: 1.0, 1: 2.0}]   
     # Convert each dictionary into a tensor
     class_weights_tensors = [tf.constant(list(weights.values()), dtype=tf.float32) for weights in class_weights]
 
@@ -238,11 +229,11 @@ if __name__ == "__main__":
     
     output_losses = {
     "flavour": WeightedSCCE(class_weight=class_weights_tensors[0]), # "sparse_categorical_crossentropy",
-    "protons":  WeightedSCCE(class_weight=class_weights_tensors[1]),
-    "pions":  WeightedSCCE(class_weight=class_weights_tensors[2]),
+    "protons": WeightedSCCE(class_weight=class_weights_tensors[1]),
+    "pions": WeightedSCCE(class_weight=class_weights_tensors[2]),
     "pizeros":  WeightedSCCE(class_weight=class_weights_tensors[3]),
     "neutrons": WeightedSCCE(class_weight=class_weights_tensors[4]),
-    "is_antineutrino":  bfce# WeightedSCCE(class_weight=class_weights_tensors[5]), #  
+    "is_antineutrino": bfce # WeightedSCCE(class_weight=class_weights_tensors[5]), # 
     }
 
     output_loss_weights = {"flavour": 1.0, # make sure to weight flavor prediction  
@@ -264,12 +255,6 @@ if __name__ == "__main__":
                                restore_best_weights=False,
                                # start_from_epoch=2
                                    )
-    tensorboard_callback = TensorBoard(log_dir='/CNN/tensorboard/', 
-                                       histogram_freq=1, 
-                                       update_freq=1000,
-                                       profile_batch=64,
-                                      )
-    
     train_generator = DataGenerator(partition['train'], **params)
     validation_generator = DataGenerator(partition['validation'], **params)
     sgd_optimizer = SGD(learning_rate=args.learning_rate, momentum=0.9)
@@ -288,9 +273,7 @@ if __name__ == "__main__":
     history = model.fit(train_generator,validation_data=validation_generator,
                         epochs=args.num_epochs, 
                         # class_weight=class_weights,
-                        callbacks=[lr_scheduler, history_saver, checkpoint_callback,
-                                   # tensorboard_callback
-                                  ], verbose=1) # no early stopping!! 
+                        callbacks=[lr_scheduler, history_saver, checkpoint_callback], verbose=1) # no early stopping!! 
 
              
     #Save model
