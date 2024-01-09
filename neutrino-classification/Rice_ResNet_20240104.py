@@ -9,12 +9,13 @@ from tensorflow.keras import datasets, layers, models, optimizers, callbacks, lo
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
 import keras.backend as K
 import os
-from generator_class_multi_1226 import DataGenerator, DataGenerator2
+from generator_class_multi_1226 import DataGenerator2
 from tensorflow.keras.optimizers import SGD
 import json
 import tqdm
 import argparse
 import pickle
+import pandas as pd
 from tensorflow.keras.regularizers import l2
 from weighted_scce import WeightedSCCE #custom weighted loss function for class imbalance. 
 
@@ -141,11 +142,9 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, help='Batch size')
     parser.add_argument('--learning_rate', type=float, help='Learning rate')
     parser.add_argument('--pixel_map_size', type=int, help='Pixel map size square shape')
-    parser.add_argument('--pixel_maps_dir', default='', type=str, help='Pixel maps directory')
     parser.add_argument('--test_name', type=str, help='name of model and plots')
     # parser.add_argument('--is_preprocessed', type=bool, default=False, help='is the data already preprocessed')
     parser.add_argument('--listname', type=str, default='urllist_0_thru_2', help='preprocessed data file name (df too)')
-    parser.add_argument('--preprocessed', action=argparse.BooleanOptionalAction, help='is the data already preprocessed') # use --no-preprocessed to save it as false
 
     args = parser.parse_args()
     
@@ -153,29 +152,15 @@ if __name__ == "__main__":
     dimensions = (args.pixel_map_size, args.pixel_map_size)
     params = {'batch_size':args.batch_size,'dim':dimensions, 'n_channels':n_channels}
 
-
-    # prepare data
-    if not args.preprocessed:
-        _files = glob.glob(args.pixel_maps_dir) ##### idk if this is right? 
-        generator = DataGenerator(_files, **params)
-        data, testdata = get_data(args.pixel_maps_dir, generator)
-        print('HI I JUST GOT THE DATA \n \n ') 
-    if args.preprocessed:
-        path_to_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+listname+'_df.pkl'
-        path_to_test_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+listname+'_df_testset.pkl'
-        df = pd.read_pickle(path_to_df)
-        dftest = pd.read_pickle(path_to_test_df)
-        # data = load_data('/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'.pkl')
-        # testdata = load_data('/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_testset.pkl')
-        # _files = data.copy()
-        # _files.extend(testdata)
-        generator = DataGenerator2(df, **params)
-        test_generator = DataGenerator2(dftest, **params)
-    # del _files
+    path_to_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df.pkl'
+    path_to_test_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df_testset.pkl'
+    df = pd.read_pickle(path_to_df)
+    dftest = pd.read_pickle(path_to_test_df)
+    generator = DataGenerator2(df, **params)
+    test_generator = DataGenerator2(dftest, **params)
     
-    partition = {'train': data[:int(.83*len(data))], 'validation': data[int(.83*len(data)):]}
+    partition = {'train': df.iloc[:int(.83*len(df))], 'validation': df.iloc[int(.83*len(df)):]}
     print(f"Number of pixel maps for training {len(partition['train'])} and for validation {len(partition['validation'])}")
-
 
     history_filename = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/'+args.test_name+'training_history.json'
     #==============================================
@@ -218,7 +203,7 @@ if __name__ == "__main__":
                            activation=activation, name=output_names[i])(x)
 
   
-    class_weights_factored = [{0: 1.4837743812022357, 1: 1.0, 2: 1.1844795010129983},
+    class_weights = [{0: 1.4837743812022357, 1: 1.0, 2: 1.1844795010129983},
                      {0: 1.3145238622114037, 1: 1.0, 2: 3.9057891605873696, 3: 7.353197760094312},
                      {0: 1.0, 1: 3.5741821962728944, 2: 9.080158488265772, 3: 8.89313432835821},
                      {0: 1.0, 1: 4.071620282434552, 2: 13.923538548432646, 3: 22.57216435847545},
@@ -226,12 +211,12 @@ if __name__ == "__main__":
                      {0: 1.0, 1: 5.048014773776547}]
     
     # this is a new trial. Just weight by approx sqrt the population density. 
-    class_weights = [{0: 1.2, 1: 1.0, 2: 1.1},
-                     {0: 1.2, 1: 1.0, 2: 2., 3: 3.},
-                     {0: 1.0, 1: 2., 2: 3., 3: 3.},
-                     {0: 1.0, 1: 2., 2: 3.5, 3: 4},
-                     {0: 1.0, 1: 1.0, 2: 2.3, 3: 1.2},
-                     {0: 1.0, 1: 2.0}]    
+    # class_weights = [{0: 1.2, 1: 1.0, 2: 1.1},
+    #                  {0: 1.2, 1: 1.0, 2: 2., 3: 3.},
+    #                  {0: 1.0, 1: 2., 2: 3., 3: 3.},
+    #                  {0: 1.0, 1: 2., 2: 3.5, 3: 4},
+    #                  {0: 1.0, 1: 1.0, 2: 2.3, 3: 1.2},
+    #                  {0: 1.0, 1: 2.0}]    
     # Convert each dictionary into a tensor
     class_weights_tensors = [tf.constant(list(weights.values()), dtype=tf.float32) for weights in class_weights]
 
@@ -271,8 +256,8 @@ if __name__ == "__main__":
                                        profile_batch=64,
                                       )
     
-    train_generator = DataGenerator(partition['train'], **params)
-    validation_generator = DataGenerator(partition['validation'], **params)
+    train_generator = DataGenerator2(partition['train'], **params)
+    validation_generator = DataGenerator2(partition['validation'], **params)
     sgd_optimizer = SGD(learning_rate=args.learning_rate, momentum=0.9)
     
     model.compile(optimizer=sgd_optimizer,
@@ -305,11 +290,7 @@ if __name__ == "__main__":
     #############
     print('Checking test sample')
 
-    if not args.preprocessed:
-        test_labels = generator.get_data_and_labels(testdata)[1]
-        test_generator = DataGenerator(testdata, **params)
-    else: 
-        test_labels = test_generator.df[output_names]
+    test_labels = test_generator.df[output_names]
     test_eval = model.evaluate(test_generator, verbose=4)
     accuracies = test_eval[7:]
     predictions = model.predict(test_generator)        
@@ -323,6 +304,11 @@ if __name__ == "__main__":
                      'pizeros': labels_n_particles,
                      'neutrons': labels_n_particles,
                      'is_antineutrino': labels_is_anti}
+
+    #save for evaluating the test stuff 
+    test_dat = {'true': test_labels, 'pred': predictions}
+    with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/temp_test_guesses.pkl', 'wb') as f:
+            pickle.dump(test_dat, f)
     
     for i, (acc, pred, key) in enumerate(zip(accuracies, predictions, output_names)):
         num_labels = output_neurons[i]
