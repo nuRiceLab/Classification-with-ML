@@ -26,37 +26,8 @@ random.seed(42) # reproducibility
 num_threads = 8
 tf.config.threading.set_inter_op_parallelism_threads(num_threads)
 
+### CHANGE PATH (or remove. I can remake all the plots I need with the saved model you get.
 plt.style.use('/home/sophiaf/mystyle.mplstyle')
-
-def get_data(pixel_map_dir, generator, save_list=False, save_list_dir='/home/sophiaf/pixel_maps_val/preprocessed_filelists/', save_list_filename=None):
-    '''
-    Get pixels maps 
-    '''
-    file_list_all = glob.glob(pixel_map_dir)
-    file_list = []
-
-    for f in tqdm.tqdm(file_list_all):
-        if generator.get_info(f)['NuPDG'] != 16 and generator.get_info(f)['NuPDG'] != -16 and generator.get_info(f)['NuEnergy'] < 4.0:
-            file_list.append(f)
-
-    random.shuffle(file_list)
-    split = int(.9*len(file_list)) # 10% for testing
-    allfiles, testfiles = file_list[:split], file_list[split:]
-    if save_list: 
-        with open(save_list_dir+save_list_filename+'.pkl', 'wb') as f:
-            pickle.dump(allfiles, f)
-        with open(save_list_dir+save_list_filename+'_testset.pkl', 'wb') as f: 
-            pickle.dump(testfiles,f)
-    return allfiles, testfiles
-
-def load_data(file):
-    '''
-    If you already have the urls for the proper info loaded up in a pickle use this. 
-    '''
-    with open(file, 'rb') as f:
-        mynewlist = pickle.load(f)
-        f.close()
-    return mynewlist
 
 class LearningRateSchedulerPlateau(callbacks.Callback):
     '''
@@ -144,14 +115,15 @@ if __name__ == "__main__":
     parser.add_argument('--pixel_map_size', type=int, help='Pixel map size square shape')
     parser.add_argument('--test_name', type=str, help='name of model and plots')
     # parser.add_argument('--is_preprocessed', type=bool, default=False, help='is the data already preprocessed')
-    parser.add_argument('--listname', type=str, default='urllist_0_thru_2', help='preprocessed data file name (df too)')
+    parser.add_argument('--listname', type=str, default='urllist_0_1_2_10_11_12', help='preprocessed data file name (df too)')
 
     args = parser.parse_args()
     
     n_channels = 3
     dimensions = (args.pixel_map_size, args.pixel_map_size)
     params = {'batch_size':args.batch_size,'dim':dimensions, 'n_channels':n_channels}
-
+    
+    ### CHANGE PATH OF THESE TWO LINES 
     path_to_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df.pkl'
     path_to_test_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df_testset.pkl'
     df = pd.read_pickle(path_to_df)
@@ -162,6 +134,7 @@ if __name__ == "__main__":
     partition = {'train': df.iloc[:int(.83*len(df))], 'validation': df.iloc[int(.83*len(df)):]}
     print(f"Number of pixel maps for training {len(partition['train'])} and for validation {len(partition['validation'])}")
 
+    ### CHANGE PATH 
     history_filename = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/'+args.test_name+'training_history.json'
     #==============================================
     # Model 
@@ -228,7 +201,7 @@ if __name__ == "__main__":
     "pions":  WeightedSCCE(class_weight=class_weights_tensors[2]),
     "pizeros":  WeightedSCCE(class_weight=class_weights_tensors[3]),
     "neutrons": WeightedSCCE(class_weight=class_weights_tensors[4]),
-    "is_antineutrino":  bfce# WeightedSCCE(class_weight=class_weights_tensors[5]), #  
+    "is_antineutrino":  bfce  
     }
 
     output_loss_weights = {"flavour": 1.0, # make sure to weight flavor prediction  
@@ -238,6 +211,7 @@ if __name__ == "__main__":
     # Create the model
     model = models.Model(inputs, outputs)
     
+    #### CHANGE PATH  
     checkpoint_filepath = '/home/sophiaf/CNN/tmp_models/'
     checkpoint_callback = ModelCheckpoint(filepath=checkpoint_filepath, monitor='val_flavour_accuracy', save_best_only=False)
     
@@ -250,11 +224,6 @@ if __name__ == "__main__":
                                restore_best_weights=False,
                                # start_from_epoch=2
                                    )
-    tensorboard_callback = TensorBoard(log_dir='/CNN/tensorboard/', 
-                                       histogram_freq=1, 
-                                       update_freq=1000,
-                                       profile_batch=64,
-                                      )
     
     train_generator = DataGenerator2(partition['train'], **params)
     validation_generator = DataGenerator2(partition['validation'], **params)
@@ -265,6 +234,7 @@ if __name__ == "__main__":
                   loss_weights = output_loss_weights,
               metrics=['accuracy'])
     
+    ### CHANGE PATH 
     #Saving model summary
     with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name+'_summary.txt', 'w') as f:
         model.summary(print_fn=lambda x: f.write(x + '\n'))
@@ -280,6 +250,7 @@ if __name__ == "__main__":
 
              
     #Save model
+    ### CHANGE PATH
     model_path = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name
     model.save(model_path)
     print()
@@ -307,6 +278,7 @@ if __name__ == "__main__":
 
     #save for evaluating the test stuff 
     test_dat = {'true': test_labels, 'pred': predictions}
+    ### CHANGE PATH 
     with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/temp_test_guesses.pkl', 'wb') as f:
             pickle.dump(test_dat, f)
     
@@ -330,5 +302,6 @@ if __name__ == "__main__":
         plt.yticks(np.arange(num_labels), labels)
         # plt.colorbar(label='Percent of True Values Predicted')
         plt.title('Confusion matrix: %s'%(key))
+        ### CHANGE PATH 
         plt.savefig('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/plots/'+args.test_name+'_con_mat_'+key+'.pdf')
         plt.show()
