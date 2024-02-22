@@ -26,27 +26,28 @@ random.seed(42) # reproducibility
 num_threads = 8
 tf.config.threading.set_inter_op_parallelism_threads(num_threads)
 
+### CHANGE PATH (or remove it, I can remake the plots as long as you save the model.) 
 plt.style.use('/home/sophiaf/mystyle.mplstyle')
 
 class LearningRateSchedulerPlateau(callbacks.Callback):
     '''
     Learning rate scheduler
     '''
-    def __init__(self, factor=0.5, patience=5, min_lr=1e-6):
+    def __init__(self, factor=0.5, patience=2, min_lr=1e-6):
         super(LearningRateSchedulerPlateau, self).__init__()
         self.factor = factor          # Factor by which the learning rate will be reduced
         self.patience = patience      # Number of epochs with no improvement after which learning rate will be reduced
         self.min_lr = min_lr          # Minimum learning rate allowed
         self.wait = 0                 # Counter for patience
-        self.best_val_acc = -1        # Best validation accuracy
+        self.best_val_loss = 1e5        # Best validation accuracy
 
     def on_epoch_end(self, epoch, logs=None):
-        current_val_acc = logs.get('val_accuracy')
-        if current_val_acc is None:
+        current_val_loss = logs.get('val_loss')
+        if current_val_loss is None:
             return
 
-        if current_val_acc > self.best_val_acc:
-            self.best_val_acc = current_val_acc
+        if current_val_loss < self.best_val_loss:
+            self.best_val_loss = current_val_loss
             self.wait = 0
         else:
             self.wait += 1
@@ -55,7 +56,7 @@ class LearningRateSchedulerPlateau(callbacks.Callback):
                 new_lr = tf.keras.backend.get_value(self.model.optimizer.lr) * self.factor
                 new_lr = max(new_lr, self.min_lr)
                 tf.keras.backend.set_value(self.model.optimizer.lr, new_lr)
-                print(f'\nLearning rate reduced to {new_lr} due to plateau in validation accuracy.')
+                print(f'\nLearning rate reduced to {new_lr} due to plateau in validation loss.')
 
 class SaveHistoryToFile(callbacks.Callback):
     '''
@@ -111,8 +112,9 @@ if __name__ == "__main__":
     parser.add_argument('--pixel_map_size', type=int, help='Pixel map size square shape')
     parser.add_argument('--test_name', type=str, help='name of model and plots')
     # parser.add_argument('--is_preprocessed', type=bool, default=False, help='is the data already preprocessed')
-    parser.add_argument('--listname', type=str, default='urllist_0_thru_2', help='preprocessed data file name (df too)')
-    parser.add_argument('--path_checkpoint', type=str, default='/home/sophiaf/CNN/tmp_models/', )
+    parser.add_argument('--listname', type=str, default='scratch_urllist_0_1_2_10_11_12', help='preprocessed data file name (df too)')
+    ### CHANGE PATH 
+    parser.add_argument('--path_checkpoint', type=str, default='/home/sophiaf/CNN/20240117/', help='where you want to save the model after epoch, also where to load the weights before training. ')
 
     args = parser.parse_args()
     
@@ -120,7 +122,9 @@ if __name__ == "__main__":
     dimensions = (args.pixel_map_size, args.pixel_map_size)
     params = {'batch_size':args.batch_size,'dim':dimensions, 'n_channels':n_channels}
 
+    ### CHANGE PATH
     path_to_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df.pkl'
+    ### CHANGE PATH
     path_to_test_df = '/home/sophiaf/pixel_maps_val/preprocessed_filelists/'+args.listname+'_df_testset.pkl'
     df = pd.read_pickle(path_to_df)
     dftest = pd.read_pickle(path_to_test_df)
@@ -130,7 +134,8 @@ if __name__ == "__main__":
     partition = {'train': df.iloc[:int(.83*len(df))], 'validation': df.iloc[int(.83*len(df)):]}
     print(f"Number of pixel maps for training {len(partition['train'])} and for validation {len(partition['validation'])}")
 
-    history_filename = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/'+args.test_name+'training_history.json'
+    ### CHANGE PATH
+    history_filename = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/'+args.test_name+'_training_history.json'
     #==============================================
     # Model 
     #==============================================
@@ -145,8 +150,8 @@ if __name__ == "__main__":
     x = layers.MaxPooling2D(3, strides=2, padding='same')(x)
 
     # Residual Blocks
-    num_blocks = 5  # Increase the number of residual blocks
-    filters = [16, 32, 64, 128, 256]   # Increase the number of filters in each block
+    num_blocks = 6  # Increase the number of residual blocks
+    filters = [16, 32, 64, 128, 256, 512]   # Increase the number of filters in each block
 
      
     for i in range(num_blocks):
@@ -180,7 +185,7 @@ if __name__ == "__main__":
     
     class_weights_tensors = [tf.constant(list(weights.values()), dtype=tf.float32) for weights in class_weights]
 
-    bfce = losses.BinaryFocalCrossentropy(alpha=0.75, gamma=2)
+    bfce = losses.BinaryFocalCrossentropy(alpha=0.5, gamma=2, apply_class_balancing=True)
     
     output_losses = {
     "flavour": WeightedSCCE(class_weight=class_weights_tensors[0]), # "sparse_categorical_crossentropy",
@@ -193,13 +198,12 @@ if __name__ == "__main__":
 
     output_loss_weights = {"flavour": 1.0, # make sure to weight flavor prediction  
                            "protons": 1.0, 
-                           "pions": 1.0, "pizeros": 1.0, "neutrons": 1.0, "is_antineutrino": 1.0
+                           "pions": 1.0, "pizeros": .5, "neutrons": .5, "is_antineutrino": 1.0
                           }
     # Create the model
     model = models.Model(inputs, outputs)
-    
-    checkpoint_filepath = '/home/sophiaf/CNN/20240109/'
-    checkpoint_callback = ModelCheckpoint(filepath=checkpoint_filepath, monitor='val_flavour_accuracy', save_best_only=True)
+    ### CHANGE PATH
+    checkpoint_callback = ModelCheckpoint(filepath=args.path_checkpoint, monitor='val_flavour_accuracy', save_best_only=True)
     
     # Define the learning rate scheduler callback and history saver
     lr_scheduler = LearningRateSchedulerPlateau(factor=0.5, patience=5, min_lr=1e-6)
@@ -209,11 +213,6 @@ if __name__ == "__main__":
                                verbose=0,mode="auto",baseline=None,
                                restore_best_weights=True,
                                    )
-    # tensorboard_callback = TensorBoard(log_dir='/CNN/tensorboard/', 
-    #                                    histogram_freq=1, 
-    #                                    update_freq=1000,
-    #                                    profile_batch=64,
-    #                                   )
     
     train_generator = DataGenerator2(partition['train'], **params)
     validation_generator = DataGenerator2(partition['validation'], **params)
@@ -224,9 +223,11 @@ if __name__ == "__main__":
                   loss_weights = output_loss_weights,
               metrics=['accuracy'])
     
-    model.load_weights(args.path_checkpoint)
+    ### DELETE THIS LINE IF YOU WANT TO START FROM RAND WEIGHTING 
+    # model.load_weights(args.path_checkpoint)
     
     #Saving model summary
+    ### CHANGE PATH
     with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name+'_summary.txt', 'w') as f:
         model.summary(print_fn=lambda x: f.write(x + '\n'))
     
@@ -240,6 +241,7 @@ if __name__ == "__main__":
 
              
     #Save model
+    ### CHANGE PATH
     model_path = '/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/model_save/'+args.test_name
     model.save(model_path)
     print()
@@ -267,7 +269,8 @@ if __name__ == "__main__":
 
     #save for evaluating the test stuff 
     test_dat = {'true': test_labels, 'pred': predictions}
-    with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/temp_test_guesses.pkl', 'wb') as f:
+    ### CHANGE PATH
+    with open('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/%s_test_predictions.pkl'%(args.test_name), 'wb') as f:
             pickle.dump(test_dat, f)
     
     for i, (acc, pred, key) in enumerate(zip(accuracies, predictions, output_names)):
@@ -290,5 +293,6 @@ if __name__ == "__main__":
         plt.yticks(np.arange(num_labels), labels)
         # plt.colorbar(label='Percent of True Values Predicted')
         plt.title('Confusion matrix: %s'%(key))
+        ### CHANGE PATH
         plt.savefig('/home/sophiaf/Classification-with-ML/neutrino-classification/CNN/plots/'+args.test_name+'_con_mat_'+key+'.pdf')
         plt.show()
